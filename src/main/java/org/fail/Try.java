@@ -7,8 +7,6 @@ import java.util.function.Supplier;
 /**
  * Represents the result of a computation that could have succeeded with a value of the type T
  * or failed with a Throwable.
- * <p>
- * это интерфейс, представляющий основную абстракцию монады
  */
 public interface Try<T> {
     /**
