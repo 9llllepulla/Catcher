@@ -10,7 +10,7 @@ import java.util.function.Supplier;
  * <p>
  * это интерфейс, представляющий основную абстракцию монады
  */
-interface Try<T> {
+public interface Try<T> {
     /**
      * Executes the given operation and returns the result wrapped in a Success or Failure
      */
