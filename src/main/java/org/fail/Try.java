@@ -21,7 +21,7 @@ public interface Try<T> {
     }
 
     /**
-     * Returns true if the original operation succeeded, otherwise returns false
+     * @return true if the original operation succeeded, otherwise returns false
      */
     boolean isSuccess();
 
@@ -39,8 +39,8 @@ public interface Try<T> {
     T getUnchecked();
 
     /**
-     * Converts this to a non-empty Optional that wraps the resulting value if this is Success,
-     * otherwise returns an empty Optional
+     * Converts this to Optional
+     * @return wrapped resulting value if this is Success, otherwise an empty
      */
     Optional<T> toOptional();
 
