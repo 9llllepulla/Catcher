@@ -1,18 +1,18 @@
-package org.fail;
+package me.t.gilllepulla.trywrap;
 
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 /**
- * Represents a failed execution
- * <p>
- * это еще одна реализация Try, которая представляет неудачное выполнение и содержит выбрасываемый объект Throwable.
+ * Represents a failed execution operation
+ *
+ * @author Sergey Lyashko
  */
-class Failure<T> implements Try<T> {
+class Fail<T> implements Try<T> {
     private final Throwable throwable;
 
-    Failure(Throwable throwable) {
+    Fail(Throwable throwable) {
         this.throwable = throwable;
     }
 
@@ -37,7 +37,7 @@ class Failure<T> implements Try<T> {
     }
 
     @Override
-    public T getOrElseSupply(Supplier<? extends T> supplier) {
+    public T getOrElse(Supplier<? extends T> supplier) {
         return supplier.get();
     }
 
@@ -52,7 +52,7 @@ class Failure<T> implements Try<T> {
     }
 
     @Override
-    public <E extends Throwable> Try<T> onFailure(ThrowableConsumer<Throwable, E> action) throws E {
+    public <E extends Throwable> Try<T> onFail(ThrowableConsumer<Throwable, E> action) throws E {
         action.accept(throwable);
         return this;
     }
@@ -64,12 +64,12 @@ class Failure<T> implements Try<T> {
 
     @Override
     public <U> Try<U> map(ThrowableFunction<? super T, ? extends U> function) {
-        return new Failure<>(throwable);
+        return new Fail<>(throwable);
     }
 
     @Override
     public <U> Try<U> flatMap(ThrowableFunction<? super T, Try<U>> function) {
-        return new Failure<>(throwable);
+        return new Fail<>(throwable);
     }
 
     @Override
@@ -78,7 +78,7 @@ class Failure<T> implements Try<T> {
             T apply = function.apply(throwable);
             return new Success<>(apply);
         } catch (Throwable ex) {
-            return new Failure<>(ex);
+            return new Fail<>(ex);
         }
     }
 
@@ -87,7 +87,7 @@ class Failure<T> implements Try<T> {
         try {
             return function.apply(throwable);
         } catch (Throwable ex) {
-            return new Failure<>(ex);
+            return new Fail<>(ex);
         }
     }
 
@@ -98,6 +98,6 @@ class Failure<T> implements Try<T> {
 
     @Override
     public String toString() {
-        return "Failure[" + throwable + "]";
+        return "Fail[" + throwable + "]";
     }
 }

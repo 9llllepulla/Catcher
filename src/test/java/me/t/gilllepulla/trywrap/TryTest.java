@@ -1,9 +1,13 @@
-package org.fail;
+package me.t.gilllepulla.trywrap;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * @author Sergey Lyashko
+ */
 class TryTest {
 
     @Test
@@ -27,7 +31,7 @@ class TryTest {
     void get() {
         Try<Integer> tryParse = Try.of(() -> Integer.parseInt("4242"));
         assertEquals(4242, tryParse.getOrElse(2));
-        assertEquals(4242, tryParse.getOrElseSupply(() -> 10 * 20 * 30));
+        assertEquals(4242, tryParse.getOrElse(() -> 10 * 20 * 30));
         assertEquals(4242, tryParse.getOrElseThrow(IllegalArgumentException::new));
         assertDoesNotThrow(() -> tryParse.getOrElseThrow(IllegalArgumentException::new));
     }
@@ -37,13 +41,13 @@ class TryTest {
         Try<Integer> tryParse = Try.of(() -> Integer.parseInt("test42"));
         assertEquals(0, tryParse.getOrElse(0));
         assertNotEquals(42, tryParse.getOrElse(0));
-        assertEquals(6000, tryParse.getOrElseSupply(() -> 10 * 20 * 30));
+        assertEquals(6000, tryParse.getOrElse(() -> 10 * 20 * 30));
         assertThrows(IllegalArgumentException.class, () -> tryParse.getOrElseThrow(IllegalArgumentException::new));
     }
 
     @Test
     void filter() {
-        assertEquals(100, Try.of(() -> Integer.parseInt("100"))
+        Assertions.assertEquals(100, Try.of(() -> Integer.parseInt("100"))
                 .filter(value -> value > 50)
                 .getUnchecked());
 
@@ -68,24 +72,24 @@ class TryTest {
     }
 
     @Test
-    void onFailure() {
+    void onFail() {
         assertThrowsExactly(IllegalArgumentException.class, () -> Try.of(() -> Integer.parseInt("test42"))
-                .onSuccess(value -> assertEquals(42, value))
-                .onFailure(e -> assertInstanceOf(Throwable.class, e))
+                .onSuccess(value -> Assertions.assertEquals(42, value))
+                .onFail(e -> assertInstanceOf(Throwable.class, e))
                 .getOrElseThrow(IllegalArgumentException::new));
 
         var result = Try.of(() -> Integer.parseInt("test42"))
-                .onFailure(e -> assertInstanceOf(Throwable.class, e))
+                .onFail(e -> assertInstanceOf(Throwable.class, e))
                 .filter(x -> x >= 1)
                 .getOrElse(1);
-        assertEquals(1, result);
+        Assertions.assertEquals(1, result);
     }
 
     @Test
     void recover() {
         int result = Try.of(() -> 1000)
                 .flatMap(value -> Try.of(() -> throwableMethod(value))
-                        .onFailure(e -> assertInstanceOf(Throwable.class, e))
+                        .onFail(e -> assertInstanceOf(Throwable.class, e))
                         .recover(e -> value - 100))
                 .getOrElse(0);
         assertEquals(900, result);

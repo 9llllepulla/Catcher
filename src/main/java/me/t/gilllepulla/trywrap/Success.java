@@ -1,4 +1,4 @@
-package org.fail;
+package me.t.gilllepulla.trywrap;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -7,8 +7,8 @@ import java.util.function.Supplier;
 
 /**
  * Represents a successful execution
- * <p>
- * это реализация Try, представляющая собой успешное выполнение и содержащая результат операции (T).
+ *
+ * @author Sergey Lyashko
  */
 class Success<T> implements Try<T> {
     private final T value;
@@ -38,7 +38,7 @@ class Success<T> implements Try<T> {
     }
 
     @Override
-    public T getOrElseSupply(Supplier<? extends T> supplier) {
+    public T getOrElse(Supplier<? extends T> supplier) {
         return value;
     }
 
@@ -54,7 +54,7 @@ class Success<T> implements Try<T> {
     }
 
     @Override
-    public <E extends Throwable> Try<T> onFailure(ThrowableConsumer<Throwable, E> action) throws E {
+    public <E extends Throwable> Try<T> onFail(ThrowableConsumer<Throwable, E> action) throws E {
         return this;
     }
 
@@ -63,7 +63,7 @@ class Success<T> implements Try<T> {
         if (predicate.test(value)) {
             return this;
         }
-        return new Failure<>(new NoSuchElementException());
+        return new Fail<>(new NoSuchElementException());
     }
 
     @Override
@@ -72,7 +72,7 @@ class Success<T> implements Try<T> {
             U apply = function.apply(value);
             return new Success<>(apply);
         } catch (Throwable e) {
-            return new Failure<>(e);
+            return new Fail<>(e);
         }
     }
 
@@ -81,7 +81,7 @@ class Success<T> implements Try<T> {
         try {
             return function.apply(value);
         } catch (Throwable e) {
-            return new Failure<>(e);
+            return new Fail<>(e);
         }
     }
 
