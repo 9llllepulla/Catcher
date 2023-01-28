@@ -1,6 +1,5 @@
-package me.t.gilllepulla.handling;
+package me.t.gilllepulla.handling.object;
 
-import me.t.gilllepulla.handling.object.Try;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

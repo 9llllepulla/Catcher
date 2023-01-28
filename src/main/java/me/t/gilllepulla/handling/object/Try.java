@@ -35,6 +35,11 @@ public interface Try<T> {
     boolean isSuccess();
 
     /**
+     * @return обернутое в Optional результирующее значение, если это успешное выполнение или пустое, в случае ошибки
+     */
+    Optional<T> toOptional();
+
+    /**
      * @return результирующее значение, если произошло успешное выполнение
      * @throws Throwable исходное исключение
      */
@@ -47,12 +52,7 @@ public interface Try<T> {
     T getUnchecked();
 
     /**
-     * @return обернутое в Optional результирующее значение, если это успешное выполнение или пустое, в случае ошибки
-     */
-    Optional<T> toOptional();
-
-    /**
-     * @return заданное результирующее значение или значение по умолчанию, в случае ошибки
+     * @return результирующее значение, если это успешное выполнение, или значение по умолчанию, в случае ошибки
      */
     T getOrElse(T defaultValue);
 
@@ -62,7 +62,7 @@ public interface Try<T> {
     T getOrElse(Supplier<? extends T> supplier);
 
     /**
-     * @return результирующее значение, если выполнение было успешное
+     * @return результирующее значение, если выполнение было успешное или исключение, передаваемое supplier-ом
      * @throws Throwable производится поставщиком исключения, передаваемого в сигнатуре метода
      */
     <X extends Throwable> T getOrElseThrow(Supplier<? extends X> exceptionSupplier) throws X;
@@ -80,7 +80,7 @@ public interface Try<T> {
     <E extends Throwable> Try<T> onFail(ThrowableConsumer<Throwable, E> consumer) throws E;
 
     /**
-     * Если значение присутствует и соответствует заданному предикату, возвращает {@code Try}, описывающий значение,
+     * Если значение присутствует и соответствует заданному предикату, возвращает Try, описывающий значение,
      * в противном случае возвращает Try, содержащий NoSuchElementException.
      *
      * @return результирующее значение или ошибку, обернутую Try
