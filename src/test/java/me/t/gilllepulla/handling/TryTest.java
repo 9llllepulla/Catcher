@@ -1,5 +1,6 @@
-package me.t.gilllepulla.trywrap;
+package me.t.gilllepulla.handling;
 
+import me.t.gilllepulla.handling.object.Try;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -69,6 +70,10 @@ class TryTest {
         assertEquals(0, Try.of(() -> Integer.parseInt("500K"))
                 .map(value -> value * 10)
                 .getOrElse(0));
+
+        assertEquals(0, Try.of(() -> Integer.parseInt("500"))
+                .map(TryTest::throwableNPE)
+                .getOrElse(0));
     }
 
     @Test
@@ -87,15 +92,27 @@ class TryTest {
 
     @Test
     void recover() {
-        int result = Try.of(() -> 1000)
-                .flatMap(value -> Try.of(() -> throwableMethod(value))
+        Integer result = Try.of(() -> 1000)
+                .flatMap(value -> Try.of(() -> throwableException(value))
                         .onFail(e -> assertInstanceOf(Throwable.class, e))
                         .recover(e -> value - 100))
                 .getOrElse(0);
         assertEquals(900, result);
     }
 
-    private static int throwableMethod(int value) {
+    @Test
+    void recoverWith() {
+        Integer result = Try.of(() -> Integer.parseInt("test42"))
+                .recoverWith(e -> Try.of(() -> Integer.parseInt("42")))
+                .getOrElse(0);
+        assertEquals(42, result);
+    }
+
+    private static int throwableException(Object o) {
         throw new IllegalArgumentException();
+    }
+
+    private static int throwableNPE(Object o) {
+        throw new NullPointerException();
     }
 }
