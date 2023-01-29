@@ -114,4 +114,19 @@ class TryTest {
     private static int throwableNPE(Object o) {
         throw new NullPointerException();
     }
+
+    @Test
+    void stream() {
+        assertEquals(420, Try.of(() -> Integer.parseInt("42"))
+                .stream()
+                .map(value -> value * 10)
+                .findAny()
+                .orElse(0));
+
+        assertEquals(0, Try.of(() -> Integer.parseInt("test42"))
+                .stream()
+                .map(value -> value * 10)
+                .findAny()
+                .orElse(0));
+    }
 }

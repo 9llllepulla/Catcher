@@ -4,6 +4,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 /**
  * Представляет успешную операцию выполнения
@@ -30,6 +31,11 @@ public final class Success<T> implements Try<T> {
     @Override
     public Optional<T> optional() {
         return Optional.of(value);
+    }
+
+    @Override
+    public Stream<T> stream() {
+        return Stream.of(value);
     }
 
     @Override

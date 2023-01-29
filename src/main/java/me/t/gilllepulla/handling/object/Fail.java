@@ -3,6 +3,7 @@ package me.t.gilllepulla.handling.object;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 /**
  * Представляет неудачную операцию выполнения
@@ -29,6 +30,11 @@ public final class Fail<T> implements Try<T> {
     @Override
     public Optional<T> optional() {
         return Optional.empty();
+    }
+
+    @Override
+    public Stream<T> stream() {
+        return Stream.empty();
     }
 
     @Override

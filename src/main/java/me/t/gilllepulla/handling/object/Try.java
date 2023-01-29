@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 /**
  * Оборачивающий интерфейс, который может иметь значение типа T или завершиться с ошибкой Throwable.
@@ -38,6 +39,11 @@ public interface Try<T> {
      * @return обернутое в Optional результирующее значение, если это успешное выполнение или пустое, в случае ошибки
      */
     Optional<T> optional();
+
+    /**
+     * @return получение stream-a результирующего значения, если это успешное выполнение или пустой stream, в случае ошибки
+     */
+    Stream<T> stream();
 
     /**
      * @return результирующее значение, если произошло успешное выполнение
@@ -129,4 +135,6 @@ public interface Try<T> {
      * или текущее результирующее значение выполнения, в случае успешного выполнения
      */
     Try<T> recoverWith(ThrowableFunction<? super Throwable, Try<T>> recoverFunction);
+
+
 }
