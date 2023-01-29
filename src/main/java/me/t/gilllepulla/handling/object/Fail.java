@@ -9,10 +9,10 @@ import java.util.function.Supplier;
  *
  * @author Sergey Lyashko
  */
-final class Fail<T> implements Try<T> {
+public final class Fail<T> implements Try<T> {
     private final Throwable throwable;
 
-    Fail(Throwable throwable) {
+    public Fail(Throwable throwable) {
         this.throwable = throwable;
     }
 
@@ -27,7 +27,7 @@ final class Fail<T> implements Try<T> {
     }
 
     @Override
-    public Optional<T> toOptional() {
+    public Optional<T> optional() {
         return Optional.empty();
     }
 
@@ -68,7 +68,7 @@ final class Fail<T> implements Try<T> {
     }
 
     @Override
-    public <U> Try<U> flatMap(ThrowableFunction<? super T, Try<U>> function) {
+    public <U> Try<U> flatMap(ThrowableFunction<? super T, Try<U>> mapper) {
         return new Fail<>(throwable);
     }
 

@@ -14,7 +14,7 @@ class TryTest {
     void success() {
         Try<Integer> tryParse = Try.of(() -> Integer.parseInt("42"));
         assertTrue(tryParse.isSuccess());
-        assertFalse(tryParse.toOptional().isEmpty());
+        assertFalse(tryParse.optional().isEmpty());
         assertEquals(42, tryParse.getUnchecked());
         assertNotEquals(0, tryParse.getUnchecked());
     }
@@ -23,7 +23,7 @@ class TryTest {
     void failure() {
         Try<Integer> tryParse = Try.of(() -> Integer.parseInt("test42"));
         assertFalse(tryParse.isSuccess());
-        assertTrue(tryParse.toOptional().isEmpty());
+        assertTrue(tryParse.optional().isEmpty());
         assertThrows(RuntimeException.class, tryParse::getUnchecked);
     }
 

@@ -10,15 +10,15 @@ import java.util.function.Supplier;
  *
  * @author Sergey Lyashko
  */
-final class Success<T> implements Try<T> {
+public final class Success<T> implements Try<T> {
     private final T value;
 
-    Success(T value) {
+    public Success(T value) {
         this.value = value;
     }
 
     @Override
-    public T get() {
+    public T get() throws Throwable {
         return value;
     }
 
@@ -28,7 +28,7 @@ final class Success<T> implements Try<T> {
     }
 
     @Override
-    public Optional<T> toOptional() {
+    public Optional<T> optional() {
         return Optional.of(value);
     }
 
@@ -77,9 +77,9 @@ final class Success<T> implements Try<T> {
     }
 
     @Override
-    public <U> Try<U> flatMap(ThrowableFunction<? super T, Try<U>> function) {
+    public <U> Try<U> flatMap(ThrowableFunction<? super T, Try<U>> mapper) {
         try {
-            return function.apply(value);
+            return mapper.apply(value);
         } catch (Throwable e) {
             return new Fail<>(e);
         }
