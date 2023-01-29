@@ -1,115 +1,111 @@
-package me.t.gilllepulla.handling.object;
+package me.t.gilllepulla.exception.handling.object;
 
-import me.t.gilllepulla.handling.Try;
+import me.t.gilllepulla.exception.handling.Try;
 
-import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 /**
- * Представляет успешную операцию выполнения
+ * Представляет неудачную операцию выполнения
  *
  * @author Sergey Lyashko
  */
-public final class Success<T> implements Try<T> {
-    private final T value;
+public final class Fail<T> implements Try<T> {
+    private final Throwable throwable;
 
-    public Success(T value) {
-        this.value = value;
+    public Fail(Throwable throwable) {
+        this.throwable = throwable;
     }
 
     @Override
     public T get() throws Throwable {
-        return value;
+        throw throwable;
     }
 
     @Override
     public T getUnchecked() {
-        return value;
+        throw new RuntimeException(throwable);
     }
 
     @Override
     public Optional<T> optional() {
-        return Optional.of(value);
+        return Optional.empty();
     }
 
     @Override
     public Stream<T> stream() {
-        return Stream.of(value);
+        return Stream.empty();
     }
 
     @Override
     public T getOrElse(T defaultValue) {
-        return value;
+        return defaultValue;
     }
 
     @Override
     public T getOrElse(Supplier<? extends T> supplier) {
-        return value;
+        return supplier.get();
     }
 
     @Override
     public <X extends Throwable> T getOrElseThrow(Supplier<? extends X> exceptionSupplier) throws X {
-        return value;
+        throw exceptionSupplier.get();
     }
 
     @Override
     public <E extends Throwable> Try<T> onSuccess(ThrowableConsumer<T, E> consumer) throws E {
-        consumer.accept(value);
         return this;
     }
 
     @Override
     public <E extends Throwable> Try<T> onFail(ThrowableConsumer<Throwable, E> consumer) throws E {
+        consumer.accept(throwable);
         return this;
     }
 
     @Override
     public Try<T> filter(Predicate<T> predicate) {
-        if (predicate.test(value)) {
-            return this;
-        }
-        return new Fail<>(new NoSuchElementException());
+        return this;
     }
 
     @Override
     public <U> Try<U> map(ThrowableFunction<? super T, ? extends U> mapper) {
-        try {
-            U apply = mapper.apply(value);
-            return new Success<>(apply);
-        } catch (Throwable e) {
-            return new Fail<>(e);
-        }
+        return new Fail<>(throwable);
     }
 
     @Override
     public <U> Try<U> flatMap(ThrowableFunction<? super T, Try<U>> mapper) {
-        try {
-            return mapper.apply(value);
-        } catch (Throwable e) {
-            return new Fail<>(e);
-        }
+        return new Fail<>(throwable);
     }
 
     @Override
     public Try<T> recover(ThrowableFunction<? super Throwable, T> recoverFunction) {
-        return this;
+        try {
+            T apply = recoverFunction.apply(throwable);
+            return new Success<>(apply);
+        } catch (Throwable ex) {
+            return new Fail<>(ex);
+        }
     }
 
     @Override
     public Try<T> recoverWith(ThrowableFunction<? super Throwable, Try<T>> recoverFunction) {
-        return this;
+        try {
+            return recoverFunction.apply(throwable);
+        } catch (Throwable ex) {
+            return new Fail<>(ex);
+        }
     }
 
     @Override
     public boolean isSuccess() {
-        return true;
+        return false;
     }
 
     @Override
     public String toString() {
-        return "Success[" + value + "]";
+        return "Fail[" + throwable + "]";
     }
 }

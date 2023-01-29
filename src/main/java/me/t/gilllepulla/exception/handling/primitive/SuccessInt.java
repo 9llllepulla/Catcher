@@ -1,9 +1,9 @@
-package me.t.gilllepulla.handling.primitive;
+package me.t.gilllepulla.exception.handling.primitive;
 
-import me.t.gilllepulla.handling.TryInt;
-import me.t.gilllepulla.handling.object.Fail;
-import me.t.gilllepulla.handling.object.Success;
-import me.t.gilllepulla.handling.Try;
+import me.t.gilllepulla.exception.handling.Try;
+import me.t.gilllepulla.exception.handling.TryInt;
+import me.t.gilllepulla.exception.handling.object.Fail;
+import me.t.gilllepulla.exception.handling.object.Success;
 
 import java.util.NoSuchElementException;
 import java.util.OptionalInt;

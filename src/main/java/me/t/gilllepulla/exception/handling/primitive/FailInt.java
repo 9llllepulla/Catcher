@@ -1,8 +1,8 @@
-package me.t.gilllepulla.handling.primitive;
+package me.t.gilllepulla.exception.handling.primitive;
 
-import me.t.gilllepulla.handling.TryInt;
-import me.t.gilllepulla.handling.object.Fail;
-import me.t.gilllepulla.handling.Try;
+import me.t.gilllepulla.exception.handling.TryInt;
+import me.t.gilllepulla.exception.handling.object.Fail;
+import me.t.gilllepulla.exception.handling.Try;
 
 import java.util.OptionalInt;
 import java.util.function.IntPredicate;

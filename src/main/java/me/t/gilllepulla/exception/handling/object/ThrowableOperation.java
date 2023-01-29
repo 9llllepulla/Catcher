@@ -1,4 +1,4 @@
-package me.t.gilllepulla.handling.object;
+package me.t.gilllepulla.exception.handling.object;
 
 @FunctionalInterface
 public interface ThrowableOperation<T> {
