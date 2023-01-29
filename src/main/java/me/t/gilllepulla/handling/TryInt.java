@@ -1,11 +1,12 @@
-package me.t.gilllepulla.handling.primitive;
+package me.t.gilllepulla.handling;
 
-import me.t.gilllepulla.handling.object.Try;
+import me.t.gilllepulla.handling.primitive.*;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.function.*;
+import java.util.stream.IntStream;
 
 /**
  *
@@ -27,7 +28,7 @@ public interface TryInt {
     boolean isSuccess();
 
     /**
-     * @return обернутое в Optional результирующее значение, если это успешное выполнение или пустое, в случае ошибки
+     * @return обернутое в OptionalInt результирующее значение, если это успешное выполнение или пустое, в случае ошибки
      */
     OptionalInt optional();
 
@@ -83,5 +84,10 @@ public interface TryInt {
      * @param mapper функция преобразования
      */
     <U> Try<U> mapToObj(IntThrowableFunction<? extends U> mapper);
+
+    /**
+     * @return получение stream-a результирующего значения, если это успешное выполнение или пустой stream, в случае ошибки
+     */
+    IntStream stream();
 
 }

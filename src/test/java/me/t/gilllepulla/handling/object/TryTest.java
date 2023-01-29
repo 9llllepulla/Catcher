@@ -1,5 +1,6 @@
 package me.t.gilllepulla.handling.object;
 
+import me.t.gilllepulla.handling.Try;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

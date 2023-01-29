@@ -1,4 +1,6 @@
-package me.t.gilllepulla.handling.object;
+package me.t.gilllepulla.handling;
+
+import me.t.gilllepulla.handling.object.*;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
