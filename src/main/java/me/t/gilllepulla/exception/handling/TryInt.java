@@ -1,7 +1,6 @@
 package me.t.gilllepulla.exception.handling;
 
 import me.t.gilllepulla.exception.handling.primitive.*;
-import me.t.gilllepulla.handling.primitive.*;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
