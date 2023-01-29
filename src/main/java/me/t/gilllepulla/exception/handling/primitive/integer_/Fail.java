@@ -1,10 +1,9 @@
-package me.t.gilllepulla.exception.handling.primitive.integer;
+package me.t.gilllepulla.exception.handling.primitive.integer_;
 
-import me.t.gilllepulla.exception.handling.Try;
 import me.t.gilllepulla.exception.handling.TryInt;
+import me.t.gilllepulla.exception.handling.Try;
 import me.t.gilllepulla.exception.handling.object.Instance;
 
-import java.util.NoSuchElementException;
 import java.util.OptionalInt;
 import java.util.function.IntPredicate;
 import java.util.function.IntSupplier;
@@ -12,83 +11,74 @@ import java.util.function.Supplier;
 import java.util.stream.IntStream;
 
 /**
- * Представляет успешную операцию выполнения для примитивного int
+ * Представляет неудачную операцию выполнения для примитивного типа int
  *
  * @author Sergey Lyashko
  */
-class SuccessInt implements TryInt {
-    private final int value;
+class Fail implements TryInt {
+    private final Throwable throwable;
 
-    SuccessInt(int value) {
-        this.value = value;
+    Fail(Throwable throwable) {
+        this.throwable = throwable;
     }
 
     @Override
     public boolean isSuccess() {
-        return true;
+        return false;
     }
 
     @Override
     public OptionalInt optional() {
-        return OptionalInt.of(value);
+        return OptionalInt.empty();
     }
 
     @Override
     public int get() throws Throwable {
-        return value;
+        throw throwable;
     }
 
     @Override
     public int getUnchecked() {
-        return value;
+        throw new RuntimeException(throwable);
     }
 
     @Override
     public int getOrElse(int defaultValue) {
-        return value;
+        return defaultValue;
     }
 
     @Override
     public int getOrElse(IntSupplier supplier) {
-        return value;
+        return supplier.getAsInt();
     }
 
     @Override
     public <X extends Throwable> int getOrElseThrow(Supplier<? extends X> exceptionSupplier) throws X {
-        return value;
+        throw exceptionSupplier.get();
     }
 
     @Override
     public <E extends Throwable> TryInt onSuccess(IntThrowableConsumer<E> consumer) throws E {
-        consumer.accept(value);
         return this;
     }
 
     @Override
     public TryInt filter(IntPredicate predicate) {
-        if (predicate.test(value)) {
-            return this;
-        }
-        return new FailInt(new NoSuchElementException());
+        return this;
     }
 
     @Override
     public <U> Try<U> mapToObj(IntThrowableFunction<? extends U> mapper) {
-        try {
-            U apply = mapper.apply(value);
-            return Instance.getSuccessInstance(apply);
-        } catch (Throwable e) {
-            return Instance.getFailInstance(e);
-        }
+        return Instance.getFailInstance(throwable);
     }
 
     @Override
     public IntStream stream() {
-        return IntStream.of(value);
+        return IntStream.empty();
     }
 
     @Override
     public String toString() {
-        return "SuccessInt[" + value + ']';
+        return "Fail[" + throwable + ']';
     }
 }
