@@ -1,12 +1,16 @@
-package me.t.gilllepulla.handling;
+package me.t.gilllepulla.handling.primitive;
 
-import me.t.gilllepulla.handling.primitive.*;
+import me.t.gilllepulla.handling.object.Try;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.function.*;
 
+/**
+ *
+ * @author Sergey Lyashko
+ */
 public interface TryInt {
 
     static TryInt of(IntThrowableOperation operation) {

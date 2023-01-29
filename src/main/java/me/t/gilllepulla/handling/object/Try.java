@@ -1,6 +1,4 @@
-package me.t.gilllepulla.handling;
-
-import me.t.gilllepulla.handling.object.*;
+package me.t.gilllepulla.handling.object;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -106,9 +104,9 @@ public interface Try<T> {
      * <p>
      * Этот метод по своему принципу действия аналогичен {@link Optional#flatMap(Function)}
      *
-     * @param function функция преобразования
+     * @param mapper функция преобразования
      */
-    <U> Try<U> flatMap(ThrowableFunction<? super T, Try<U>> function);
+    <U> Try<U> flatMap(ThrowableFunction<? super T, Try<U>> mapper);
 
     /**
      * Применяет recoverFunction для восстановления после выброса исключения, если это неудачное выполнение,
