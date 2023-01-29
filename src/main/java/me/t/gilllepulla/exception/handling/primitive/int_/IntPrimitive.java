@@ -1,8 +1,8 @@
 package me.t.gilllepulla.exception.handling.primitive.int_;
 
-public final class PrimitiveInstance {
+public final class IntPrimitive {
 
-    private PrimitiveInstance() {
+    private IntPrimitive() {
     }
 
     public static Fail geFailInstance(Throwable throwable) {
