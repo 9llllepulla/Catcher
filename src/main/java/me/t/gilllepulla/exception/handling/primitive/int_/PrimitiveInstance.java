@@ -1,4 +1,4 @@
-package me.t.gilllepulla.exception.handling.primitive.integer_;
+package me.t.gilllepulla.exception.handling.primitive.int_;
 
 public final class PrimitiveInstance {
 
