@@ -13,10 +13,10 @@ import java.util.stream.Stream;
  *
  * @author Sergey Lyashko
  */
-public final class Success<T> implements Try<T> {
+class Success<T> implements Try<T> {
     private final T value;
 
-    public Success(T value) {
+    Success(T value) {
         this.value = value;
     }
 

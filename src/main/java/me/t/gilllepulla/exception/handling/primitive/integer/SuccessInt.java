@@ -2,8 +2,7 @@ package me.t.gilllepulla.exception.handling.primitive.integer;
 
 import me.t.gilllepulla.exception.handling.Try;
 import me.t.gilllepulla.exception.handling.TryInt;
-import me.t.gilllepulla.exception.handling.object.Fail;
-import me.t.gilllepulla.exception.handling.object.Success;
+import me.t.gilllepulla.exception.handling.object.Instance;
 
 import java.util.NoSuchElementException;
 import java.util.OptionalInt;
@@ -17,7 +16,7 @@ import java.util.stream.IntStream;
  *
  * @author Sergey Lyashko
  */
-final class SuccessInt implements TryInt {
+class SuccessInt implements TryInt {
     private final int value;
 
     SuccessInt(int value) {
@@ -77,9 +76,9 @@ final class SuccessInt implements TryInt {
     public <U> Try<U> mapToObj(IntThrowableFunction<? extends U> mapper) {
         try {
             U apply = mapper.apply(value);
-            return new Success<>(apply);
+            return Instance.getSuccessInstance(apply);
         } catch (Throwable e) {
-            return new Fail<>(e);
+            return Instance.getFailInstance(e);
         }
     }
 

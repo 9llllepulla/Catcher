@@ -1,8 +1,8 @@
 package me.t.gilllepulla.exception.handling.primitive.integer;
 
 import me.t.gilllepulla.exception.handling.TryInt;
-import me.t.gilllepulla.exception.handling.object.Fail;
 import me.t.gilllepulla.exception.handling.Try;
+import me.t.gilllepulla.exception.handling.object.Instance;
 
 import java.util.OptionalInt;
 import java.util.function.IntPredicate;
@@ -15,7 +15,7 @@ import java.util.stream.IntStream;
  *
  * @author Sergey Lyashko
  */
-final class FailInt implements TryInt {
+class FailInt implements TryInt {
     private final Throwable throwable;
 
     FailInt(Throwable throwable) {
@@ -69,7 +69,7 @@ final class FailInt implements TryInt {
 
     @Override
     public <U> Try<U> mapToObj(IntThrowableFunction<? extends U> mapper) {
-        return new Fail<>(throwable);
+        return Instance.getFailInstance(throwable);
     }
 
     @Override

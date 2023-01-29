@@ -12,10 +12,10 @@ import java.util.stream.Stream;
  *
  * @author Sergey Lyashko
  */
-public final class Fail<T> implements Try<T> {
+class Fail<T> implements Try<T> {
     private final Throwable throwable;
 
-    public Fail(Throwable throwable) {
+    Fail(Throwable throwable) {
         this.throwable = throwable;
     }
 
