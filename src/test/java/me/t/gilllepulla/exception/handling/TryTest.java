@@ -1,6 +1,5 @@
-package me.t.gilllepulla.exception.handling.object;
+package me.t.gilllepulla.exception.handling;
 
-import me.t.gilllepulla.exception.handling.Try;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -112,7 +111,7 @@ class TryTest {
         throw new IllegalArgumentException();
     }
 
-    private static int throwableNPE(Object o) {
+    private static Integer throwableNPE(Object o) {
         throw new NullPointerException();
     }
 
