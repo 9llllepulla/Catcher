@@ -8,7 +8,13 @@ import java.util.OptionalInt;
 import java.util.function.IntPredicate;
 import java.util.function.IntSupplier;
 import java.util.function.Supplier;
+import java.util.stream.IntStream;
 
+/**
+ * Представляет неудачную операцию выполнения для примитивного типа int
+ *
+ * @author Sergey Lyashko
+ */
 public final class FailInt implements TryInt {
     private final Throwable throwable;
 
@@ -66,4 +72,13 @@ public final class FailInt implements TryInt {
         return new Fail<>(throwable);
     }
 
+    @Override
+    public IntStream stream() {
+        return IntStream.empty();
+    }
+
+    @Override
+    public String toString() {
+        return "FailInt[" + throwable + ']';
+    }
 }

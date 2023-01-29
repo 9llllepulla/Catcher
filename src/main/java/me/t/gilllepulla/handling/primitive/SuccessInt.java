@@ -10,9 +10,12 @@ import java.util.OptionalInt;
 import java.util.function.IntPredicate;
 import java.util.function.IntSupplier;
 import java.util.function.Supplier;
+import java.util.stream.IntStream;
 
 /**
+ * Представляет успешную операцию выполнения для примитивного int
  *
+ * @author Sergey Lyashko
  */
 public final class SuccessInt implements TryInt {
     private final int value;
@@ -78,6 +81,11 @@ public final class SuccessInt implements TryInt {
         } catch (Throwable e) {
             return new Fail<>(e);
         }
+    }
+
+    @Override
+    public IntStream stream() {
+        return IntStream.of(value);
     }
 
     @Override
