@@ -1,4 +1,4 @@
-package me.t.gilllepulla.exception.handling.primitive.double_;
+package me.t.gilllepulla.exception.handling.primitive;
 
 @FunctionalInterface
 public interface DoubleThrowableOperation {

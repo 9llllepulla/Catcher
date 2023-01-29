@@ -3,6 +3,8 @@ package me.t.gilllepulla.exception.handling.primitive.int_;
 import me.t.gilllepulla.exception.handling.Try;
 import me.t.gilllepulla.exception.handling.TryInt;
 import me.t.gilllepulla.exception.handling.object.Instance;
+import me.t.gilllepulla.exception.handling.primitive.IntThrowableConsumer;
+import me.t.gilllepulla.exception.handling.primitive.IntThrowableFunction;
 
 import java.util.NoSuchElementException;
 import java.util.OptionalInt;

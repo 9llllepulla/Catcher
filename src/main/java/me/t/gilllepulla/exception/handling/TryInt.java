@@ -1,8 +1,8 @@
 package me.t.gilllepulla.exception.handling;
 
-import me.t.gilllepulla.exception.handling.primitive.int_.IntThrowableConsumer;
-import me.t.gilllepulla.exception.handling.primitive.int_.IntThrowableFunction;
-import me.t.gilllepulla.exception.handling.primitive.int_.IntThrowableOperation;
+import me.t.gilllepulla.exception.handling.primitive.IntThrowableConsumer;
+import me.t.gilllepulla.exception.handling.primitive.IntThrowableFunction;
+import me.t.gilllepulla.exception.handling.primitive.IntThrowableOperation;
 import me.t.gilllepulla.exception.handling.primitive.int_.IntPrimitive;
 
 import java.util.NoSuchElementException;

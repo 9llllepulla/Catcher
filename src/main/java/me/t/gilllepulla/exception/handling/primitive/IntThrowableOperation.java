@@ -1,4 +1,4 @@
-package me.t.gilllepulla.exception.handling.primitive.int_;
+package me.t.gilllepulla.exception.handling.primitive;
 
 @FunctionalInterface
 public interface IntThrowableOperation {
