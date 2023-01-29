@@ -1,4 +1,4 @@
-package me.t.gilllepulla.exception.handling.primitive;
+package me.t.gilllepulla.exception.handling.primitive.integer;
 
 import me.t.gilllepulla.exception.handling.Try;
 import me.t.gilllepulla.exception.handling.TryInt;
@@ -17,10 +17,10 @@ import java.util.stream.IntStream;
  *
  * @author Sergey Lyashko
  */
-public final class SuccessInt implements TryInt {
+final class SuccessInt implements TryInt {
     private final int value;
 
-    public SuccessInt(int value) {
+    SuccessInt(int value) {
         this.value = value;
     }
 

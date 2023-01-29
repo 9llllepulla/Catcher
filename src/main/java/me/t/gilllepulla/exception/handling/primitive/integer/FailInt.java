@@ -1,4 +1,4 @@
-package me.t.gilllepulla.exception.handling.primitive;
+package me.t.gilllepulla.exception.handling.primitive.integer;
 
 import me.t.gilllepulla.exception.handling.TryInt;
 import me.t.gilllepulla.exception.handling.object.Fail;
@@ -15,10 +15,10 @@ import java.util.stream.IntStream;
  *
  * @author Sergey Lyashko
  */
-public final class FailInt implements TryInt {
+final class FailInt implements TryInt {
     private final Throwable throwable;
 
-    public FailInt(Throwable throwable) {
+    FailInt(Throwable throwable) {
         this.throwable = throwable;
     }
 

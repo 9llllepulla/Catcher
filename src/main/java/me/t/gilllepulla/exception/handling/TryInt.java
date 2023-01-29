@@ -1,6 +1,9 @@
 package me.t.gilllepulla.exception.handling;
 
-import me.t.gilllepulla.exception.handling.primitive.*;
+import me.t.gilllepulla.exception.handling.primitive.integer.IntThrowableConsumer;
+import me.t.gilllepulla.exception.handling.primitive.integer.IntThrowableFunction;
+import me.t.gilllepulla.exception.handling.primitive.integer.IntThrowableOperation;
+import me.t.gilllepulla.exception.handling.primitive.integer.PrimitiveInstance;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -23,9 +26,9 @@ public interface TryInt {
 
     static TryInt of(IntThrowableOperation operation) {
         try {
-            return new SuccessInt(operation.execute());
+            return PrimitiveInstance.getSuccessIntInstance(operation.execute());
         } catch (Throwable e) {
-            return new FailInt(e);
+            return PrimitiveInstance.geFailIntInstance(e);
         }
     }
 

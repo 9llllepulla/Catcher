@@ -1,4 +1,4 @@
-package me.t.gilllepulla.exception.handling.primitive;
+package me.t.gilllepulla.exception.handling.primitive.integer;
 
 @FunctionalInterface
 public interface IntThrowableConsumer <E extends Throwable>{
