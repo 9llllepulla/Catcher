@@ -1,5 +1,7 @@
 package me.t.gilllepulla.handling.object;
 
+import me.t.gilllepulla.handling.Try;
+
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.function.Predicate;
