@@ -1,4 +1,6 @@
-package me.t.gilllepulla.handling.object;
+package me.t.gilllepulla.handling;
+
+import me.t.gilllepulla.handling.object.*;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -37,7 +39,7 @@ public interface Try<T> {
     /**
      * @return обернутое в Optional результирующее значение, если это успешное выполнение или пустое, в случае ошибки
      */
-    Optional<T> toOptional();
+    Optional<T> optional();
 
     /**
      * @return результирующее значение, если произошло успешное выполнение
