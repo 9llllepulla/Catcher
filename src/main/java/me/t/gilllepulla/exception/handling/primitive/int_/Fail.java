@@ -81,6 +81,6 @@ class Fail implements TryInt {
 
     @Override
     public String toString() {
-        return "Fail[" + throwable + ']';
+        return "Fail{" + throwable + '}';
     }
 }

@@ -106,6 +106,6 @@ class Fail<T> implements Try<T> {
 
     @Override
     public String toString() {
-        return "Fail[" + throwable + "]";
+        return "Fail{" + throwable + "}";
     }
 }

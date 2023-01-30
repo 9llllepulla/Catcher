@@ -91,6 +91,6 @@ class Success implements TryInt {
 
     @Override
     public String toString() {
-        return "Success[" + value + ']';
+        return "Success{" + value + '}';
     }
 }

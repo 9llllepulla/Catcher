@@ -110,6 +110,6 @@ class Success<T> implements Try<T> {
 
     @Override
     public String toString() {
-        return "Success[" + value + "]";
+        return "Success{" + value + "}";
     }
 }
