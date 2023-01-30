@@ -27,9 +27,9 @@ public interface Try<T> {
      */
     static <T> Try<T> of(ThrowableOperation<T> operation) {
         try {
-            return Instance.getSuccessInstance(operation.execute());
+            return ObjectType.getSuccessInstance(operation.execute());
         } catch (Throwable e) {
-            return Instance.getFailInstance(e);
+            return ObjectType.getFailInstance(e);
         }
     }
 

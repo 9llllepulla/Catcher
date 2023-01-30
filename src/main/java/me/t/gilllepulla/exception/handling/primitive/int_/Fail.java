@@ -2,7 +2,7 @@ package me.t.gilllepulla.exception.handling.primitive.int_;
 
 import me.t.gilllepulla.exception.handling.TryInt;
 import me.t.gilllepulla.exception.handling.Try;
-import me.t.gilllepulla.exception.handling.object.Instance;
+import me.t.gilllepulla.exception.handling.object.ObjectType;
 import me.t.gilllepulla.exception.handling.primitive.IntThrowableConsumer;
 import me.t.gilllepulla.exception.handling.primitive.IntThrowableFunction;
 
@@ -71,7 +71,7 @@ class Fail implements TryInt {
 
     @Override
     public <U> Try<U> mapToObj(IntThrowableFunction<? extends U> mapper) {
-        return Instance.getFailInstance(throwable);
+        return ObjectType.getFailInstance(throwable);
     }
 
     @Override

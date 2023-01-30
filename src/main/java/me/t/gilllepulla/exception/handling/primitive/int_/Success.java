@@ -2,7 +2,7 @@ package me.t.gilllepulla.exception.handling.primitive.int_;
 
 import me.t.gilllepulla.exception.handling.Try;
 import me.t.gilllepulla.exception.handling.TryInt;
-import me.t.gilllepulla.exception.handling.object.Instance;
+import me.t.gilllepulla.exception.handling.object.ObjectType;
 import me.t.gilllepulla.exception.handling.primitive.IntThrowableConsumer;
 import me.t.gilllepulla.exception.handling.primitive.IntThrowableFunction;
 
@@ -78,9 +78,9 @@ class Success implements TryInt {
     public <U> Try<U> mapToObj(IntThrowableFunction<? extends U> mapper) {
         try {
             U apply = mapper.apply(value);
-            return Instance.getSuccessInstance(apply);
+            return ObjectType.getSuccessInstance(apply);
         } catch (Throwable e) {
-            return Instance.getFailInstance(e);
+            return ObjectType.getFailInstance(e);
         }
     }
 

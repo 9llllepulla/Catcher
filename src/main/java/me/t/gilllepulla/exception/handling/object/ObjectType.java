@@ -1,8 +1,8 @@
 package me.t.gilllepulla.exception.handling.object;
 
-public final class Instance {
+public final class ObjectType {
 
-    private Instance() {
+    private ObjectType() {
     }
 
     public static <T> Fail<T> getFailInstance(Throwable throwable) {
