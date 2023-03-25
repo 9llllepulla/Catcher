@@ -4,10 +4,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>t.me.gILLLepuLLa</groupId>
-    <artifactId>Try</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <groupId>me.t.gilllepulla</groupId>
+    <artifactId>catcher</artifactId>
+    <version>1.0</version>
     <description>Lib for try-catch code simplify</description>
+    <packaging>jar</packaging>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
