@@ -3,6 +3,7 @@ package me.t.gilllepulla.exception.handling.object;
 import me.t.gilllepulla.exception.handling.Try;
 
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -50,8 +51,8 @@ class Fail<T> implements Try<T> {
     }
 
     @Override
-    public <X extends Throwable> T getOrElseThrow(Supplier<? extends X> exceptionSupplier) throws X {
-        throw exceptionSupplier.get();
+    public <X extends Throwable> T getOrElseThrow(Function<Throwable, ? extends X> causeFunction) throws X {
+        throw causeFunction.apply(throwable);
     }
 
     @Override

@@ -35,6 +35,7 @@ public interface Try<T> {
 
     /**
      * @return true если исходная операция может быть выполнена успешно
+     * @apiNote terminal operation
      */
     boolean isSuccess();
 
@@ -51,40 +52,71 @@ public interface Try<T> {
     /**
      * @return результирующее значение, если произошло успешное выполнение
      * @throws Throwable исходное исключение
+     * @apiNote terminal operation
      */
     T get() throws Throwable;
 
     /**
      * @return результирующее значение, если произошло успешное выполнение
      * @throws RuntimeException обернутое в RuntimeException исходное исключение в случае ошибки
+     * @apiNote terminal operation
      */
     T getUnchecked();
 
     /**
      * @return результирующее значение, если это успешное выполнение, или значение по умолчанию, в случае ошибки
+     * @apiNote terminal operation
      */
     T getOrElse(T defaultValue);
 
     /**
      * @return результирующее значение, если это успешное выполнение, иначе результат, произведенный данным поставщиком
+     * @apiNote terminal operation
      */
     T getOrElse(Supplier<? extends T> supplier);
 
     /**
-     * @return результирующее значение, если выполнение было успешное или исключение, передаваемое supplier-ом
-     * @throws Throwable производится поставщиком исключения, передаваемого в сигнатуре метода
+     * Оборачивайте ваши методы, которые могут выбрасывать checked или unchecked исключения.
+     * Получайте причину выброса исключения, и оборачивайте в unchecked исключения, с возможностью указания причины ошибки.
+     * <p>
+     * Например:
+     * <pre>
+     *  Try.of(() -> throwableCheckedExceptionWithMessageMethod())
+     *     .getOrElseThrow(e -> new NoSuchElementException(e.getMessage()));
+     *
+     *  where
+     *  Object throwableCheckedExceptionWithMessageMethod() throws Exception {
+     *     throw new Exception("Error message");
+     *  }
+     * </pre>
+     *
+     * @return результирующее значение, если выполнение было успешное или исключение, передаваемое function
+     * @throws X производится поставщиком исключения, передаваемого в сигнатуре метода
+     * @apiNote terminal operation
      */
-    <X extends Throwable> T getOrElseThrow(Supplier<? extends X> exceptionSupplier) throws X;
+    <X extends Throwable> T getOrElseThrow(Function<Throwable, ? extends X> causeFunction) throws X;
 
     /**
      * @return текущее результирующее значение обернуто Try, если оно выполнено успешно, иначе ничего не делает
      * @throws E если действие в consumer вызывает исключение
+     * @apiNote intermediate operations
      */
     <E extends Throwable> Try<T> onSuccess(ThrowableConsumer<T, E> consumer) throws E;
 
     /**
+     * Оборачивайте ваши методы, которые могут выбрасывать checked или unchecked исключения.
+     * Получайте причину выброса исключения, и выполняйте необходимые действия.
+     * <p>
+     * Например:
+     * <pre>
+     *  Try.of(() -> throwableMethod())
+     *     .onFail(e -> log.error("Some error {}", e.getMessage()))
+     *     .getOrElseThrow(e -> new NoSuchElementException(e.getMessage()));
+     * </pre>
+     *
      * @return текущее результирующее значение обернуто Try, если это ошибка, иначе ничего не делает
      * @throws E если действие в consumer вызывает исключение
+     * @apiNote intermediate operations
      */
     <E extends Throwable> Try<T> onFail(ThrowableConsumer<Throwable, E> consumer) throws E;
 
@@ -94,6 +126,7 @@ public interface Try<T> {
      *
      * @return результирующее значение или ошибку, обернутую Try
      * @throws NoSuchElementException если предикат не соответствует значению
+     * @apiNote intermediate operations
      */
     Try<T> filter(Predicate<T> predicate);
 
@@ -104,6 +137,7 @@ public interface Try<T> {
      * Этот метод по своему принципу действия аналогичен {@link Optional#map(Function)}
      *
      * @param mapper функция преобразования
+     * @apiNote intermediate operations
      */
     <U> Try<U> map(ThrowableFunction<? super T, ? extends U> mapper);
 
@@ -114,6 +148,7 @@ public interface Try<T> {
      * Этот метод по своему принципу действия аналогичен {@link Optional#flatMap(Function)}
      *
      * @param mapper функция преобразования
+     * @apiNote intermediate operations
      */
     <U> Try<U> flatMap(ThrowableFunction<? super T, Try<U>> mapper);
 
@@ -125,6 +160,7 @@ public interface Try<T> {
      *
      * @return новый Try, содержащий ошибку, в случае, если выполнение завершилось ошибкой
      * или текущее результирующее значение выполнения, в случае успешного выполнения
+     * @apiNote intermediate operations
      */
     Try<T> recover(ThrowableFunction<? super Throwable, T> recoverFunction);
 
@@ -136,8 +172,8 @@ public interface Try<T> {
      *
      * @return новый Try, содержащий ошибку, в случае, если выполнение завершилось ошибкой
      * или текущее результирующее значение выполнения, в случае успешного выполнения
+     * @apiNote intermediate operations
      */
     Try<T> recoverWith(ThrowableFunction<? super Throwable, Try<T>> recoverFunction);
-
 
 }
