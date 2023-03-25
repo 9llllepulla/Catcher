@@ -3,6 +3,8 @@ package me.t.gilllepulla.exception.handling;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.NoSuchElementException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -77,10 +79,22 @@ class TryTest {
 
     @Test
     void onFail() {
-        assertThrowsExactly(IllegalArgumentException.class, () -> Try.of(() -> Integer.parseInt("test42"))
-                .onSuccess(value -> Assertions.assertEquals(42, value))
-                .onFail(e -> assertInstanceOf(Throwable.class, e))
-                .getOrElseThrow(IllegalArgumentException::new));
+
+        assertThrowsExactly(IllegalArgumentException.class,
+                () -> Try.of(() -> Integer.parseInt("test42"))
+                        .onSuccess(value -> Assertions.assertEquals(42, value))
+                        .onFail(e -> assertInstanceOf(Throwable.class, e))
+                        .getOrElseThrow(IllegalArgumentException::new));
+
+        assertThrowsExactly(NoSuchElementException.class,
+                () -> Try.of(TryTest::throwableCheckedExceptionWithMessageMethod)
+                        .onFail(e -> assertInstanceOf(Throwable.class, e))
+                        .getOrElseThrow(e -> new NoSuchElementException(e.getMessage())));
+
+        assertThrowsExactly(NoSuchElementException.class,
+                () -> Try.of(TryTest::throwableUnchecked)
+                        .onFail(e -> assertInstanceOf(Throwable.class, e))
+                        .getOrElseThrow(e -> new NoSuchElementException(e.getMessage())));
 
         var result = Try.of(() -> Integer.parseInt("test42"))
                 .onFail(e -> assertInstanceOf(Throwable.class, e))
@@ -92,7 +106,7 @@ class TryTest {
     @Test
     void recover() {
         Integer result = Try.of(() -> 1000)
-                .flatMap(value -> Try.of(() -> throwableException(value))
+                .flatMap(value -> Try.of(TryTest::throwableUnchecked)
                         .onFail(e -> assertInstanceOf(Throwable.class, e))
                         .recover(e -> value - 100))
                 .getOrElse(0);
@@ -107,8 +121,12 @@ class TryTest {
         assertEquals(42, result);
     }
 
-    private static int throwableException(Object o) {
-        throw new IllegalArgumentException();
+    private static int throwableUnchecked() {
+        throw new IllegalArgumentException("Error message");
+    }
+
+    private static Integer throwableCheckedExceptionWithMessageMethod() throws Exception {
+        throw new Exception("test throw AccessDeniedException exception");
     }
 
     private static Integer throwableNPE(Object o) {
