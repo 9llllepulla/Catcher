@@ -175,5 +175,4 @@ public interface Try<T> {
      * @apiNote intermediate operations
      */
     Try<T> recoverWith(ThrowableFunction<? super Throwable, Try<T>> recoverFunction);
-
 }
