@@ -46,6 +46,7 @@ public interface Try<T> {
 
     /**
      * @return получение stream-a результирующего значения, если это успешное выполнение или пустой stream, в случае ошибки
+     * @apiNote intermediate operations
      */
     Stream<T> stream();
 
